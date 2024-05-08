@@ -1,6 +1,30 @@
+import { useState, ChangeEvent } from 'react';
 import { categories } from '../data/categories';
+import type { Activity } from '../types';
 
 export default function Form() {
+  const [activity, setActivity] = useState<Activity>({
+    category: 1,
+    name: '',
+    calories: 0,
+  });
+
+  const handleChange = (
+    e: ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLInputElement>
+  ) => {
+    const isNumberField = ['category', 'calories'].includes(e.target.id);
+
+    setActivity({
+      ...activity,
+      [e.target.id]: isNumberField ? +e.target.value : e.target.value,
+    });
+  };
+
+  const isValidActivity = (): boolean => {
+    const { name, calories } = activity;
+    return name.trim() !== '' && calories > 0;
+  };
+
   return (
     <form className='space-y-5 bg-white shadow p-10 rounded-lg'>
       <div className='grid grid-cols-1 gap-3'>
@@ -11,6 +35,8 @@ export default function Form() {
           className='border border-slate-300 p-2 rounded-lg w-full bg-white'
           name='category'
           id='category'
+          value={activity.category}
+          onChange={handleChange}
         >
           {categories.map((category) => (
             <option key={category.id} value={category.id}>
@@ -21,14 +47,16 @@ export default function Form() {
       </div>
 
       <div className='grid grid-cols-1 gap-3'>
-        <label htmlFor='activity' className='font-bold'>
+        <label htmlFor='name' className='font-bold'>
           Actividad:
         </label>
         <input
           type='text'
-          id='activity'
+          id='name'
           className='border border-slate-300 p-2 rounded-lg w-full bg-white'
           placeholder='Ej. Comida, Jugo de Naranja, Ensalada, ejercicio, Pesas, Bicicleta'
+          value={activity.name}
+          onChange={handleChange}
         />
       </div>
 
@@ -41,13 +69,16 @@ export default function Form() {
           id='calories'
           className='border border-slate-300 p-2 rounded-lg w-full bg-white'
           placeholder='Ej. Comida, Jugo de Naranja, Ensalada, ejercicio, Pesas, Bicicleta'
+          value={activity.calories}
+          onChange={handleChange}
         />
       </div>
 
       <input
         type='submit'
-        className='bg-gray-800 hover:bg-gray-900 cursor-pointer w-full p-2 text-white font-bold uppercase'
-        value='Guardar Comida o Guardar Ejercicio'
+        className='bg-gray-800 disabled:opacity-10 hover:bg-gray-900 cursor-pointer w-full p-2 text-white font-bold uppercase'
+        value={activity.category === 1 ? 'Guardar Comida' : 'Guardar Ejercicio'}
+        disabled={!isValidActivity()}
       />
     </form>
   );
