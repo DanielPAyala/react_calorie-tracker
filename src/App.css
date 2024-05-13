@@ -1,0 +1,21 @@
+:root {
+    --cerulean-blue-50: #f1f4fd;
+    --cerulean-blue-100: #dfe7fa;
+    --cerulean-blue-200: #c5d4f8;
+    --cerulean-blue-300: #9eb8f2;
+    --cerulean-blue-400: #7093ea;
+    --cerulean-blue-500: #4e6fe3;
+    --cerulean-blue-600: #3951d7;
+    --cerulean-blue-700: #303fc5;
+    --cerulean-blue-800: #313aaf;
+    --cerulean-blue-900: #29317f;
+    --cerulean-blue-950: #1d204e;
+}
+
+.bg-cerulean-blue-500 {
+    background-color: var(--cerulean-blue-500);
+}
+
+.bg-cerulean-blue-600 {
+    background-color: var(--cerulean-blue-600);
+}
