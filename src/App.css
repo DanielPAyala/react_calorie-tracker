@@ -12,6 +12,14 @@
     --cerulean-blue-950: #1d204e;
 }
 
+.bg-cerulean-blue-300 {
+    background-color: var(--cerulean-blue-300);
+}
+
+.bg-cerulean-blue-400 {
+    background-color: var(--cerulean-blue-400);
+}
+
 .bg-cerulean-blue-500 {
     background-color: var(--cerulean-blue-500);
 }
