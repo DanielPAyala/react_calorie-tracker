@@ -24,16 +24,25 @@ export const activityReducer = (
   state: ActivityState = initialState,
   action: ActivityActions
 ) => {
-  switch (action.type) {
-    case 'save-activity':
-      return {
-        ...state,
-        activities: [...state.activities, action.payload.newActivity],
-      };
-    case 'set-activeId':
-      return { ...state, activeId: action.payload.id };
-
-    default:
-      return state;
+  if (action.type === 'save-activity') {
+    let updatedActivities: Activity[] = [];
+    if (state.activeId) {
+      updatedActivities = state.activities.map((activity) =>
+        activity.id === state.activeId ? action.payload.newActivity : activity
+      );
+    } else {
+      updatedActivities = [...state.activities, action.payload.newActivity];
+    }
+    return {
+      ...state,
+      activities: updatedActivities,
+      activeId: '',
+    };
   }
+
+  if (action.type === 'set-activeId') {
+    return { ...state, activeId: action.payload.id };
+  }
+
+  return state;
 };
