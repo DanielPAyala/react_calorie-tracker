@@ -1,5 +1,5 @@
 import { Dispatch } from 'react';
-import { PencilSquareIcon } from '@heroicons/react/16/solid';
+import { XCircleIcon, PencilSquareIcon } from '@heroicons/react/24/outline';
 
 import type { Activity } from '../types';
 import { categories } from '../data/categories';
@@ -51,6 +51,16 @@ export default function ActivityList({
               }
             >
               <PencilSquareIcon className='h-8 w-8 text-gray-800' />
+            </button>
+            <button
+              onClick={() =>
+                dispatch({
+                  type: 'delete-activity',
+                  payload: { id: activity.id },
+                })
+              }
+            >
+              <XCircleIcon className='h-8 w-8 text-red-500' />
             </button>
           </div>
         </div>
